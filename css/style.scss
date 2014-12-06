@@ -1,0 +1,78 @@
+* {
+	margin: 0;
+	padding: 0;
+	user-select: none;
+}
+
+// dev helpers
+@mixin absolute-center {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+}
+@mixin mark-edge ($color: red) {
+	box-sizing: border-box;
+	border: 1px solid $color;
+}
+@mixin mark-body ($color: black) {
+	background: $color;
+	// opacity: 0.8;
+}
+
+// patials/_book.scss
+$debug: true;
+$mask: false;
+
+$page-ratio: 1.18;
+$page-w: 500px;
+$page-h: $page-w * $page-ratio;
+
+body {
+	overflow: hidden;
+}
+
+.book {
+	width: $page-w;
+	height: $page-h;
+	@include absolute-center;
+	box-sizing: border-box;
+}
+.container {
+	width: $page-w;
+	height: $page-h;
+	float: left;
+	position: relative;
+	@if $debug == true {
+		@include mark-body(black);
+	}
+}
+.page {
+	width: $page-w;
+	height: $page-h;
+	position: absolute;
+	bottom: 0;
+	@if $debug == true {
+		font-size: 500px;
+		line-height: $page-h;
+		text-align: center;
+		@include mark-body(red);
+	}
+}
+.mask {
+	width: $page-w;
+	height: $page-h;
+	position: absolute;
+	bottom: 0;
+	overflow: hidden;
+	@if $mask == true {
+		overflow: visible;
+		box-sizing: border-box;
+		&:first-child {
+			border-left: 5px dashed purple;
+		}
+		@include mark-body(green);
+	}
+}
